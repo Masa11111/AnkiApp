@@ -1,0 +1,10 @@
+-- CreateTable
+CREATE TABLE "Card" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "front" TEXT NOT NULL,
+    "back" TEXT NOT NULL,
+    "intervalDays" INTEGER NOT NULL DEFAULT 0,
+    "nextReviewAt" DATETIME NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL
+);
