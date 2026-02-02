@@ -1,18 +1,19 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
+import { prisma } from "../../../lib/prisma";
 
 export async function GET() {
-  return NextResponse.json([
-    {
-      id: 1,
-      front: "What does latency mean?",
-      back: "The delay before data transfer begins.",
-      intervalDays: 0
+  const now = new Date();
+
+  const cards = await prisma.card.findMany({
+    where: {
+      nextReviewAt: {
+        lte: now,
+      },
     },
-    {
-      id: 2,
-      front: "What is an API?",
-      back: "An interface that allows different software systems to communicate.",
-      intervalDays: 1
-    }
-  ])
+    orderBy: {
+      nextReviewAt: "asc",
+    },
+  });
+
+  return NextResponse.json(cards);
 }
